@@ -1,3 +1,5 @@
+import React from "react";
+
 export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -32,6 +34,11 @@ export default function Navbar() {
             <li className="nav-item">
               <a className="nav-link" href="/productos">
                 Productos
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/nuevo">
+                Nuevo
               </a>
             </li>
           </ul>
