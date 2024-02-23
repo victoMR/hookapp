@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
-
+import { URL_API2 } from "../config/rutas";
+import { useNavigate } from "react-router-dom";
 export default function Nuevo() {
+  const navegate = useNavigate();
   const [formData, setFormData] = useState({
     nombre: "",
     usuario: "",
@@ -20,15 +22,11 @@ export default function Nuevo() {
   async function guardarUsuario(e) {
     e.preventDefault();
 
-    const response = await axios.post(
-      "http://localhost:8080/usuarios/api/nuevousuario",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-    );
+    const response = await axios.post(URL_API2 + "nuevousuario", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     console.log(response);
     // reset form
     setFormData({
@@ -48,9 +46,8 @@ export default function Nuevo() {
     setMensaje(response.data);
     setTimeout(() => {
       setMensaje("");
+      navegate("/");
     }, 3000);
-
-
   }
 
   function handleInputChange(e) {
@@ -63,14 +60,14 @@ export default function Nuevo() {
 
   return (
     <div className="container mt-4 mb-4">
-        {/* mesaje de que se guuardo coreectamente el usuario solo debe aparecewr cuando da respuesta  */}
-        {mensaje && (
-            <div className="alert alert-success" role="alert">
-                {mensaje}
-            </div>
-        )}
+      {/* mesaje de que se guuardo coreectamente el usuario solo debe aparecewr cuando da respuesta  */}
+      {mensaje && (
+        <div className="alert alert-success" role="alert">
+          {mensaje}
+        </div>
+      )}
       <form onSubmit={guardarUsuario}>
-        <div className="card">
+        <div className="card bg-dark-subtle">
           <div className="card-header">
             <h3>Nuevo Usuario</h3>
           </div>
@@ -92,6 +89,7 @@ export default function Nuevo() {
                 type="text"
                 id="curp"
                 name="curp"
+                maxLength={18}
                 className="form-control"
                 value={formData.curp}
                 onChange={handleInputChange}
@@ -126,6 +124,7 @@ export default function Nuevo() {
                 id="rfc"
                 name="rfc"
                 className="form-control"
+                maxLength={13}
                 value={formData.rfc}
                 onChange={handleInputChange}
               />
@@ -173,7 +172,7 @@ export default function Nuevo() {
                 value={formData.telefono}
                 onChange={handleInputChange}
               />
-            </div>  
+            </div>
             <div className="form-group">
               <label htmlFor="foto">Foto</label>
               <input
@@ -189,6 +188,11 @@ export default function Nuevo() {
           </div>
           <div className="card-footer">
             <button className="btn btn-primary">Guardar</button>
+            <button
+              className="btn btn-warning m-2"
+              onClick={() => navegate("/")}>
+              Regresar
+            </button>
           </div>
         </div>
       </form>

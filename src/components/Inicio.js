@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { URL_API, IMG_API } from "../config/rutas";
 
 export default function Inicio() {
   const [dataUsuarios, setDataUsuarios] = useState([]);
 
   useEffect(() => {
     axios
-      .get("https://ejemlofirebase.onrender.com/usuarios//api/mostrarusr")
+      .get(URL_API+"mostrarusr")
       .then((respuesta) => {
         console.log(respuesta);
         setDataUsuarios(respuesta.data);
@@ -18,9 +19,9 @@ export default function Inicio() {
   }, []);
 
   const listaUsuarios = dataUsuarios.map((usuario) => {
-    var foto = "https://ejemlofirebase.onrender.com/uploads/" + usuario.foto;
+    var foto = IMG_API + usuario.foto;
     // var editar = "https://ejemlofirebase.onrender.com/usuarios/usuarios/editar/" + usuario.id;
-    var eliminar = "https://ejemlofirebase.onrender.com/usuarios/usuarios/borrar/" + usuario.id;
+    // var eliminar = "https://ejemlofirebase.onrender.com/usuarios/usuarios/borrar/" + usuario.id;
     return (
       <tr key={usuario.id} className="align-middle">
         <td>{usuario.id}</td>
@@ -41,8 +42,8 @@ export default function Inicio() {
         </td>
         <td>
           {/* <Link to={editar} className="btn btn-warning">Editar</Link> */}
-          <Link to={`/usuarios/editar/${usuario.id}`} className="btn btn-warning">Editar</Link>
-          <Link to={eliminar} className="btn btn-danger">Eliminar</Link>
+          <Link to={`/usuarios/editar/${usuario.id}`} className="btn btn-warning m-1">Editar</Link>
+          <Link to={`/usuarios/borrar/${usuario.id}`} className="btn btn-danger m-1">Eliminar</Link>
         </td>
       </tr>
     );

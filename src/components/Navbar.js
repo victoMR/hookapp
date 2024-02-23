@@ -25,10 +25,15 @@ export default function Navbar() {
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav ml-auto"> {/* Use "ml-auto" to push the items to the right */}
             <li className="nav-item">
               <a className="nav-link" href="/">
                 Usuarios
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link" href="/nuevo" >
+                Nuevo Usuario
               </a>
             </li>
             <li className="nav-item">
@@ -36,9 +41,9 @@ export default function Navbar() {
                 Productos
               </a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/nuevo">
-                Nuevo
+            <li className="nav-item" >
+              <a className="nav-link" href="/nuevoProd">
+                Nuevo Producto
               </a>
             </li>
           </ul>

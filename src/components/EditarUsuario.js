@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { URL_API2 } from "../config/rutas";
 
 export default function EditarUsuario() {
   const params = useParams();
@@ -24,7 +25,7 @@ export default function EditarUsuario() {
 
     async function obtenerUsuario() {
       const respuesta = await axios.get(
-        `http://localhost:8080/usuarios/api/buscarUsuarioPorId/${params.id}`
+        URL_API2+`buscarUsuarioPorId/${params.id}`
       );
       console.log(respuesta.data);
       setNombre(respuesta.data.nombre);
@@ -65,7 +66,7 @@ export default function EditarUsuario() {
     formData.append("id", id);
 
     const res = await axios.post(
-      "http://localhost:8080/usuarios/api/editarUsr",
+      URL_API2+"editarUsr",
       formData,
       {
         headers: {
@@ -92,7 +93,7 @@ export default function EditarUsuario() {
       setMensaje("");
       // Redirect to the main route
       window.location.href = "/";
-    }, 2000);
+    }, 1000);
   };
 
   const handleFileChange = (e) => {
@@ -191,6 +192,7 @@ export default function EditarUsuario() {
                 id="curp"
                 name="curp"
                 className="form-control"
+                maxLength={18}
                 value={curp}
                 onChange={handleInputChange}
               />
@@ -224,6 +226,7 @@ export default function EditarUsuario() {
                 id="rfc"
                 name="rfc"
                 className="form-control"
+                maxLength={13}
                 value={rfc}
                 onChange={handleInputChange}
               />
@@ -272,30 +275,30 @@ export default function EditarUsuario() {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="form-group">
-              <div className="container m-2">
-                <img
-                  src={rutafoto}
-                  alt={foto}
-                  style={{
-                    width: "10%",
-                    borderRadius: "10%",
-                    draggable: "false",
-                  }}
+              <div className="form-group">
+                <div className="container m-2">
+                  <img
+                    src={rutafoto}
+                    alt={foto}
+                    style={{
+                      width: "10%",
+                      borderRadius: "10%",
+                      draggable: "false",
+                    }}
+                  />
+                </div>
+                <label htmlFor="foto">Foto</label>
+                <input
+                  type="file"
+                  id="foto"
+                  name="foto"
+                  className="form-control"
+                  placeholder={foto}
+                  text={foto}
+                  onChange={handleFileChange}
                 />
               </div>
-              <label htmlFor="foto">Foto</label>
-              <input
-                type="file"
-                id="foto"
-                name="foto"
-                className="form-control"
-                placeholder={foto}
-                text={foto}
-                onChange={handleFileChange}
-              />
             </div>
-          </div>
 
           <div className="card-footer">
             <button type="submit" className="btn btn-primary">
